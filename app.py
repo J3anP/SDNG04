@@ -7,7 +7,7 @@ import pytz
 import requests
 import random
 import string
-from flask import session
+from flask import session, url_for
 import json
 import files.flowUtils as fu
 import hashlib
@@ -130,12 +130,11 @@ def get_user_from_db(username, db_config,aux):
         return None
 
 def update_user(username, nuevos_valores):
-    conexion = None  # Inicializa la variable en caso de que falle la conexión
+    conexion = None
     try:
         conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor()
 
-        # Construcción de la consulta UPDATE
         set_clause = ", ".join([f"{campo} = %s" for campo in nuevos_valores.keys()])
         valores = list(nuevos_valores.values()) + [username]
         consulta = f"UPDATE user SET {set_clause} WHERE username = %s"
@@ -143,14 +142,16 @@ def update_user(username, nuevos_valores):
         cursor.execute(consulta, valores)
         conexion.commit()
 
-        print(f"Se actualizaron {cursor.rowcount} filas.")
+        return cursor.rowcount > 0
 
     except mysql.connector.Error as err:
         print(f"Error: {err}")
+        return False
     finally:
         if conexion and conexion.is_connected():
             cursor.close()
             conexion.close()
+
 
 
 def get_rules_by_role(idrole):
@@ -178,6 +179,28 @@ def get_rules_by_role(idrole):
         print(f"Error al conectarse a la base de datos: {err}")
         return None
 
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
+
+def get_num_rules_by_username(username):
+    try:
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+        query = """
+            SELECT u.numrules
+            FROM user u
+            WHERE u.username = %s
+        """
+
+        cursor.execute(query, (username,))
+        numrules = cursor.fetchall()
+        return numrules[0]
+    except mysql.connector.Error as err:
+        print(f"Error al conectarse a la base de datos: {err}")
+        return None
     finally:
         if cursor:
             cursor.close()
@@ -239,16 +262,14 @@ def get_ip():
     x_forwarded_for = request.headers.get('X-Forwarded-For')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
-        print("ip usuario1", ip)
     else:
         ip = request.remote_addr
-        print("ip usuario2", ip)
     return ip
 
 def generate_token(usuario):
     payload = {
         'usuario': usuario,
-        'exp': datetime.utcnow() + timedelta(hours=1)
+        'exp': datetime.utcnow() + timedelta(minutes=1)
     }
     token = jwt.encode(payload, 'grupo4', algorithm='HS256')
     return token
@@ -256,7 +277,6 @@ def generate_token(usuario):
 def decode_token(token):
     try:
         payload = jwt.decode(token, 'grupo4', algorithms=['HS256'])
-        print(payload)
         return payload['usuario']
     except jwt.ExpiredSignatureError:
         print("error expiredsignatuere")
@@ -281,19 +301,13 @@ def login():
         if usuario:
             regla_usuario = get_rules_by_role(usuario.rol)[0]
             token = generate_token(usuario.to_dict())
-            print("token uwu",token)
-            print(usuario.to_dict())
-            print("token uwu decoded", decode_token(token))
             return redirect(f"http://{regla_usuario[3]}:{regla_usuario[4]}/?token={token}")
     else:
-        usuario = get_user_from_db(get_ip(), db_config, False)
+        usuario = get_user_from_db(ip_usuario, db_config, False)
         if usuario:
             session["usuario"] = usuario.to_dict()
             regla_usuario = get_rules_by_role(usuario.rol)[0]
             token = generate_token(usuario.to_dict())
-            print("token uwu", token)
-            print(usuario.to_dict())
-            print("token uwu decoded", decode_token(token))
             return redirect(f"http://{regla_usuario[3]}:{regla_usuario[4]}/?token={token}")
 
     if request.method == "POST":
@@ -313,18 +327,25 @@ def login():
 
             # Redirección
             token = generate_token(usuario.to_dict())
-            print("token uwu", token)
-            print(usuario.to_dict())
-            print("token uwu decoded", decode_token(token))
             return redirect(f"http://{regla_usuario[3]}:{regla_usuario[4]}/?token={token}")
         else:
             return "Credenciales inválidas", 401
     return render_template("login.html")
 
-# Redirección a recursos:
+# Cerrar sesión:
+@app.route("/logout", methods=["GET"])
+def logout():
 
+    username = request.args.get('username')
 
+    if username:
+        numrules = get_num_rules_by_username(username)[0]
+        if numrules:
+            fu.eliminar_conexion(username, numrules)
+            update_user(username, {"numrules": None})
 
+    session.clear()
+    return redirect(url_for('login'))
 
 # Main:
 if __name__ == "__main__":
