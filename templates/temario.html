@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temario</title>
+
+    <!-- Font Awesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+
+    <!-- Custom CSS File Link -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <section class="flex">
+            <a href="home.html" class="logo">Redes definidas por software</a>
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                <div id="search-btn" class="fas fa-search"></div>
+            </div>
+        </section>
+    </header>
+
+    <div class="side-bar">
+        <div id="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+
+        <div class="profile">
+            <img src="images/pic-1.jpg" class="image" alt="">
+            <h3 class="name">Shaikh Anas</h3>
+            <p class="role">Profesor</p>
+        </div>
+
+        <nav class="navbar">
+            <a href="home.html"><i class="fas fa-home"></i><span>Inicio</span></a>
+            <a href="temario.html"><i class="fas fa-graduation-cap"></i><span>Temario</span></a>
+        </nav>
+    </div>
+
+    <section class="courses">
+        <h1 class="heading">Temario</h1>
+
+        <div class="box-container">
+            <table id="temario-table" class="display">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Materia</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Introducción a SDN</td>
+                        <td>2024-01-15</td>
+                        <td>2024-02-15</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-edit"><i class="fas fa-edit"></i> </button>
+                                <button class="btn btn-delete"><i class="fas fa-trash"></i> </button>
+                            </div>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Protocolos OpenFlow</td>
+                        <td>2024-02-16</td>
+                        <td>2024-03-15</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-edit"><i class="fas fa-edit"></i> </button>
+                                <button class="btn btn-delete"><i class="fas fa-trash"></i> </button>
+                            </div>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Implementación SDN</td>
+                        <td>2024-03-16</td>
+                        <td>2024-04-15</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-edit"><i class="fas fa-edit"></i> </button>
+                                <button class="btn btn-delete"><i class="fas fa-trash"></i> </button>
+                            </div>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="footer">
+        Página hecha por alumnos de SDN de la Pontificia Universidad Católica del Perú | <span>Grupo 4</span>
+    </footer>
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function () {
+            $('#temario-table').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se encontraron resultados",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(filtrado de _MAX_ registros en total)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Último",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            // Ejemplo: Controladores para los botones
+            $('.btn-edit').click(function () {
+                alert('Editar materia');
+            });
+
+            $('.btn-delete').click(function () {
+                if (confirm('¿Estás seguro de que deseas eliminar esta materia?')) {
+                    alert('Materia eliminada');
+                }
+            });
+        });
+    </script>
+
+<style>
+    /* Ajustar tamaño de los botones */
+    .btn {
+        width: 40px; /* Ancho */
+        height: 40px; /* Alto */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px; /* Cambiar a 0 si no deseas bordes redondeados */
+        font-size: 16px;
+    }
+
+    .btn i {
+        margin: 0; /* Sin margen en el icono */
+    }
+
+    .btn-edit {
+        background-color: #4CAF50; /* Color verde */
+        color: white;
+    }
+
+    .btn-delete {
+        background-color: #f44336; /* Color rojo */
+        color: white;
+    }
+
+    .btn:hover {
+        opacity: 0.9;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 5px; /* Espaciado entre botones */
+        justify-content: center;
+    }
+
+    /* Ajustar la columna de acciones */
+    td:last-child,
+    th:last-child {
+        text-align: center;
+        width: 100px; /* Ajustar el ancho al tamaño necesario para los botones */
+        white-space: nowrap; /* Evita que el contenido salte de línea */
+    }
+
+    /* Aumentar el tamaño de fuente del DataTable */
+    table.dataTable {
+        font-size: 16px; /* Ajusta el tamaño de letra de las celdas */
+    }
+
+    table.dataTable thead th {
+        font-size: 18px; /* Tamaño de letra de los encabezados */
+    }
+</style>
+</body>
+
+</html>
+
