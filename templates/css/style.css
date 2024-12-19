@@ -11,6 +11,23 @@
    --border:.1rem solid rgba(0,0,0,.2);
 }
 
+.logout-btn {
+   display: inline-block;
+   margin-left: auto; /* Para que se alinee a la derecha */
+   background-color: #ff4d4d; /* Color rojo para destacar */
+   color: white;
+   padding: 10px 15px;
+   border: none;
+   border-radius: 5px;
+   text-decoration: none;
+   font-weight: bold;
+   transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+   background-color: #e60000; /* Efecto hover */
+}
+
 *{
    font-family: 'Nunito', sans-serif;
    margin:0; padding:0;

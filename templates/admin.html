@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Temario</title>
+    
+        <!-- Font Awesome CDN Link -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    
+        <!-- Custom CSS File Link -->
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <header class="header">
+            <section class="flex">
+                <a href="home.html" class="logo">Redes definidas por software</a>
+
+                <!--
+                <div class="icons">
+                    <div id="menu-btn" class="fas fa-bars"></div>
+                    <div id="search-btn" class="fas fa-search"></div>
+                </div>
+                -->
+                <a href="logout.html" class="logout-btn">Cerrar sesión</a>
+
+            </section>
+        </header>
+
+
+        <div class="side-bar">
+            <div id="close-btn">
+                <i class="fas fa-times"></i>
+            </div>
+    
+            <div class="profile">
+                <img src="images/pic-1.jpg" class="image" alt="">
+                <h3 class="name">Jean Piere</h3>
+                <p class="role">Administrador</p>
+            </div>
+    
+           <!--
+            <nav class="navbar">
+                <a><i class="fas fa-home"></i><span>Inicio</span></a>
+                <a href="temario.html"><i class="fas fa-graduation-cap"></i><span>Temario</span></a>
+            </nav>
+            -->
+        </div>
+        <section class="courses">
+            <h1 class="heading">Usuarios</h1>
+
+            <div class="box-container">
+                <table id="temario-table" class="display">
+
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Time</th>
+                            <th>Código</th>
+                            <th>Rol</th>
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
+        </section>
+
+
+        <footer class="footer">
+            Página hecha por alumnos de SDN de la Pontificia Universidad Católica del Perú | <span>Grupo 4</span>
+        </footer>
+    
+        <!-- jQuery CDN -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#temario-table').DataTable({
+                    "ajax": "/usuarios",
+                    "columns": [
+                        { "data": "username" },
+                        { "data": "nombres" },
+                        { "data": "apellidos" },
+                        { "data": "time_stamp" },
+                        { "data": "codigo" },
+                        { "data": "rol" }
+                    ]
+                });
+            });
+        </script>
+
+    </body>
+
+
+
+</html>
