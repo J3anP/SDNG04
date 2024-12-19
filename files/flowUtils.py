@@ -11,7 +11,7 @@ from prettytable import PrettyTable
 #                   CONEXIONES:
 # -------------------------------------------------
 
-controller_ip = '192.168.200.200'
+controller_ip = '192.168.201.200'
 
 # Estructura nombre del flow:
 # Normales:
@@ -70,6 +70,8 @@ def crear_conexion(src_dpid, src_port, dst_dpid, dst_port, ip_usuario, ip_recurs
     connections[handler] = []
     connections[handler + "-ARP"] = []
 
+    j = 1
+
     # Flujos normales
     for i in range(0, len(ruta) - 1, 2):
         switch_dpid = ruta[i][0]
@@ -88,7 +90,7 @@ def crear_conexion(src_dpid, src_port, dst_dpid, dst_port, ip_usuario, ip_recurs
             protocol="TCP",
             port_dst=port_recurso,
             handler=handler,
-            flow_number=len(connections[handler]) + 1
+            flow_number=j
         )
         connections[handler].append(flow)
 
@@ -98,7 +100,7 @@ def crear_conexion(src_dpid, src_port, dst_dpid, dst_port, ip_usuario, ip_recurs
             out_port=out_port,
             handler=handler,
             tipo="",
-            flow_number=len(connections[handler]) + 1)
+            flow_number=j)
 
         connections[handler+"-ARP"].append(flow_arp)
 
@@ -114,7 +116,7 @@ def crear_conexion(src_dpid, src_port, dst_dpid, dst_port, ip_usuario, ip_recurs
             protocol="TCP",
             port_src=port_recurso,
             handler=handler,
-            flow_number=len(connections[handler])
+            flow_number=j
         )
         connections[handler].append(flow_reverse)
 
@@ -124,9 +126,10 @@ def crear_conexion(src_dpid, src_port, dst_dpid, dst_port, ip_usuario, ip_recurs
             out_port=in_port,
             handler=handler,
             tipo="reverse-",
-            flow_number=len(connections[handler]))
+            flow_number=j)
 
         connections[handler + "-ARP"].append(flow_arp_reverse)
+        j += 1
 
 
     print(f"Conexión creada con handler: {handler}")
@@ -226,7 +229,6 @@ def eliminar_conexion(handler,numrules):
         eliminar_flow(normal_arp)
         eliminar_flow(reverse)
         eliminar_flow(reverse_arp)
-
     print(f"Conexión con handler {handler} eliminada.")
 
 
@@ -234,7 +236,6 @@ def eliminar_flow(flowname):
     url = f"http://{controller_ip}:8080/wm/staticflowpusher/json"
     response = requests.delete(url, json={"name": flowname})
     if response.status_code == 200:
-        response
-        #print(f"Flow {flow['name']} eliminado correctamente del controlador.")
+        print(f"Flow {flowname} eliminado correctamente del controlador.")
     else:
         print(f"Error al eliminar el flow {flowname} del controlador.")
