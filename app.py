@@ -11,7 +11,7 @@ from flask import session, url_for
 import json
 import files.flowUtils as fu
 import hashlib
-from flask import Flask, render_template, request, redirect
+from flask import Flask, jsonify,render_template, request, redirect
 from pyrad.client import Client
 from pyrad.dictionary import Dictionary
 from pyrad.packet import AccessRequest, Packet
@@ -207,6 +207,26 @@ def get_num_rules_by_username(username):
         if conn:
             conn.close()
 
+@app.route('/usuarios', methods=['GET'])
+def obtener_usuarios():
+    try:
+        # Conexión a la base de datos
+        conexion = mysql.connector.connect(**db_config)
+        cursor = conexion.cursor(dictionary=True)
+        
+        # Consulta SQL
+        query = "SELECT u.username, u.names, u.lastnames, u.code,u.time_stamp ,r.rolname as rol FROM user join role r on u.rol = r.idrole"
+        cursor.execute(query)
+        resultados = cursor.fetchall()
+        
+        return jsonify(resultados)
+    except mysql.connector.Error as error:
+        return jsonify({"error": str(error)})
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
+        if 'conexion' in locals():
+            conexion.close()
 
 # Floodlight:
 def create_authorization_flows(usuario):
