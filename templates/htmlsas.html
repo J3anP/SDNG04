@@ -1,4 +1,4 @@
-<!DOCTYPE html> == $0
+<!DOCTYPE html>
 
 <html lang="en">
     
@@ -11,43 +11,72 @@
     <!-- font awesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
  
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+ 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/style.css">
  
- </head>
- <body class="">
+    <style>
+        /* Hacer que la tabla ocupe todo el ancho */
+        .box-container {
+            width: 100%;
+            margin: 0 auto;
+        }
+        #alumnosTable {
+            width: 100% !important; /* Tabla ocupa todo el ancho */
+            table-layout: fixed; /* Ajustar columnas automáticamente */
+        }
+        #alumnosTable th, #alumnosTable td {
+            text-align: center; /* Centrar contenido */
+            word-wrap: break-word; /* Permitir ajuste del texto */
+        }
+
+
+        .home-grid .box-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Cambiado a ocupar todo el ancho */
+    gap: 0;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#alumnosTable {
+    width: 100% !important; /* Asegurar que la tabla ocupe todo el ancho del contenedor */
+    table-layout: auto; /* Ajustar el contenido automáticamente */
+}
+
+#alumnosTable th, #alumnosTable td {
+    text-align: center; /* Centrar contenido */
+    padding: 0.5rem; /* Espaciado interno para una mejor visualización */
+}
+    </style>
  
- <header class="header">
+</head>
+<body>
+ 
+<header class="header">
     
     <section class="flex">
  
        <a href="home.html" class="logo">Redes definidas por software</a>
  
-       
- 
        <div class="icons">
           <div id="menu-btn" class="fas fa-bars"></div>
           <div id="search-btn" class="fas fa-search"></div>
-          <div id="user-btn" class="fas fa-user"></div>
-          
        </div>
  
        <div class="profile">
           <img src="images/pic-1.jpg" class="image" alt="">
-          <h3 class="name">shaikh anas</h3>
-          <p class="role">studen</p>
-          <a href="profile.html" class="btn">view profile</a>
-          <div class="flex-btn">
-             <a href="login.html" class="option-btn">login</a>
-             <a href="register.html" class="option-btn">register</a>
-          </div>
+          <h3 class="name">Gurmencindro Bartra</h3>
+          <p class="role">Profesir</p>
        </div>
  
     </section>
  
- </header>   
+</header>   
  
- <div class="side-bar">
+<div class="side-bar">
  
     <div id="close-btn">
        <i class="fas fa-times"></i>
@@ -55,81 +84,73 @@
  
     <div class="profile">
        <img src="images/pic-1.jpg" class="image" alt="">
-       <h3 class="name">shaikh anas</h3>
-       <p class="role">studen</p>
-       <a href="profile.html" class="btn">view profile</a>
+       <h3 class="name">Gurmencindro Bartra</h3>
+       <p class="role">Profesor</p>
     </div>
  
     <nav class="navbar">
-       <a href="home.html"><i class="fas fa-home"></i><span>home</span></a>
-       
+       <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
        <a href="courses.html"><i class="fas fa-graduation-cap"></i><span>Temario</span></a>
-       
     </nav>
  
- </div>
+</div>
  
- <section class="home-grid">
+<section class="home-grid">
  
     <h1 class="heading">Alumnos</h1>
  
     <div class="box-container">
- 
-       
- 
-       
- 
-       
- 
-       
- 
+       <table id="alumnosTable" class="display">
+          <thead>
+             <tr>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Código</th>
+             </tr>
+          </thead>
+          <tbody>
+             <tr><td>Juan</td><td>Pérez</td><td>20230001</td></tr>
+             <tr><td>María</td><td>Gómez</td><td>20230002</td></tr>
+             <tr><td>Pedro</td><td>Martínez</td><td>20230003</td></tr>
+             <tr><td>Lucía</td><td>Fernández</td><td>20230004</td></tr>
+             <tr><td>Carlos</td><td>Hernández</td><td>20230005</td></tr>
+             <tr><td>Laura</td><td>Torres</td><td>20230006</td></tr>
+             <tr><td>José</td><td>Ramírez</td><td>20230007</td></tr>
+             <tr><td>Ana</td><td>Vargas</td><td>20230008</td></tr>
+             <tr><td>Francisco</td><td>Morales</td><td>20230009</td></tr>
+             <tr><td>Elena</td><td>Soto</td><td>20230010</td></tr>
+          </tbody>
+       </table>
     </div>
  
- </section>
+</section>
  
- 
- 
- <section class="courses">
- 
-    <h1 class="heading">Detalles del curso</h1>
- 
-    <!-- <div class="box-container">
- 
-       <div class="box">
-          <div class="tutor">
-             <img src="images/pic-2.jpg" alt="">
-             <div class="info">
-                <h3>john deo</h3>
-                <span>21-10-2022</span>
-             </div>
-          </div>
-          <div class="thumb">
-             <img src="images/thumb-1.png" alt="">
-             <span>10 videos</span>
-          </div>
-          <h3 class="title">complete HTML tutorial</h3>
-          <a href="playlist.html" class="inline-btn">view playlist</a>
-       </div> 
- 
-    </div>
-    -- >
- 
-    
- 
- </section>
-
- 
- <footer class="footer">
-
+<footer class="footer">
     Página hecha por alumnos de SDN de la Pontificia Universidad Católica del Perú | <span>Grupo 4</span> 
+</footer>
  
- </footer>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
  
- <!-- custom js file link  -->
- <script src="js/script.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
  
-    
+<!-- custom js file link  -->
+<script src="js/script.js"></script>
  
- </body>
- </html>
+<script>
+    // Activar DataTable
+    $(document).ready(function () {
+       $('#alumnosTable').DataTable({
+           paging: true, // Paginación activada
+           searching: true, // Búsqueda activada
+           info: true, // Información activada
+           autoWidth: false, // Desactivar el autoajuste de ancho para columnas
+       });
+    });
+</script>
+ 
+</body>
+</html>
+
 
