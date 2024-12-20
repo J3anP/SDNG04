@@ -206,7 +206,7 @@ def enviar_flow_al_controller(flow):
     response = requests.post(url, json=flow)
     if response.status_code == 200:
         response
-        #print(f"Flow {flow['name']} enviado correctamente al controlador.")
+        print(f"Flow {flow['name']} enviado correctamente al controlador.")
     else:
         print(f"Error al enviar el flow {flow['name']} al controlador.")
         print(response.content)

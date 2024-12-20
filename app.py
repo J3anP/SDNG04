@@ -226,7 +226,7 @@ def create_authorization_flows(usuario):
     sw_id_recurso, sw_port_recurso, mac_recurso = fu.get_attachement_points(ip_recurso, False)
 
     # Flows:
-    numrules = fu.crear_conexion(sw_id_usuario,sw_port_usuario,sw_id_recurso, sw_port_recurso, ip_usuario, mac_usuario, ip_recurso, mac_recurso,port_recurso,usuario.username)
+    numrules = fu.crear_conexion(sw_id_usuario,sw_port_usuario,sw_id_recurso, sw_port_recurso, ip_usuario, ip_recurso, mac_usuario, mac_recurso,port_recurso,usuario.username)
 
     # Update del usuario:
     update_user(usuario.username, {"ip": ip_usuario, "sw_id": sw_id_usuario, "sw_port": sw_port_usuario, "mac": mac_usuario, "numrules": numrules})
