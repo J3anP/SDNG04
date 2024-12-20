@@ -40,7 +40,7 @@
     
             <div class="profile">
                 <img src="images/pic-1.jpg" class="image" alt="">
-                <h3 class="name">Jean Piere</h3>
+                <h3 class="name">Telito Campeon</h3>
                 <p class="role">Administrador</p>
             </div>
     
@@ -67,6 +67,40 @@
                             <th>Rol</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <tr>
+                            <td>GabrielTM</td>
+                            <td>Gabriel Alejandro</td>
+                            <td>Talledo Meneses</td>
+                            <td>11:12:30 del 19-12-2024</td>
+                            <td>20211755</td>
+                            <td>Alumno</td>
+                        </tr>
+                        <tr>
+                            <td>Sergio</td>
+                            <td>Sergio Andre</td>
+                            <td>Bustamente Salcedo</td>
+                            <td>11:12:30 del 19-12-2024</td>
+                            <td>20211755</td>
+                            <td>Alumno</td>
+                        </tr>
+                        <tr>
+                            <td>Gumercindo</td>
+                            <td>Gumercindo</td>
+                            <td>Bartra</td>
+                            <td>11:12:30 del 19-12-2024</td>
+                            <td>20001234</td>
+                            <td>Profesor</td>
+                        </tr>
+                        <tr>
+                            <td>Telito</td>
+                            <td>Telito</td>
+                            <td>Campeon</td>
+                            <td>11:12:30 del 19-12-2024</td>
+                            <td>20240000</td>
+                            <td>Administrador</td>
+                        </tr>
+                    </tbody>
 
                 </table>
             </div>
@@ -82,22 +116,23 @@
     
         <!-- DataTables JS -->
         <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+        
         <script>
             $(document).ready(function() {
                 $('#temario-table').DataTable({
                     "ajax": "/usuarios",
                     "columns": [
                         { "data": "username" },
-                        { "data": "nombres" },
-                        { "data": "apellidos" },
+                        { "data": "names" },
+                        { "data": "lastnames" },
                         { "data": "time_stamp" },
-                        { "data": "codigo" },
+                        { "data": "code" },
                         { "data": "rol" }
                     ]
                 });
             });
         </script>
-
+    
     </body>
 
 

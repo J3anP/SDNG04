@@ -10,7 +10,7 @@
    --white:#fff;
    --border:.1rem solid rgba(0,0,0,.2);
 }
-
+/*Aqui ponemos cosas*/
 .logout-btn {
    display: inline-block;
    margin-left: auto; /* Para que se alinee a la derecha */
@@ -27,6 +27,68 @@
 .logout-btn:hover {
    background-color: #e60000; /* Efecto hover */
 }
+
+
+/* Configuración del body y la página */
+body {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh; /* Altura mínima del viewport */
+   margin: 0;
+}
+
+/* El contenedor principal ocupa el espacio restante */
+.courses {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   justify-content: center; /* Centrar verticalmente si hay poco contenido */
+}
+
+/* Footer fijo al final */
+.footer {
+   text-align: center;
+   padding: 10px 20px;
+   background-color: #333;
+   color: #fff;
+}
+
+#temario-table th, #temario-table td {
+   text-align: center;
+   vertical-align: middle;
+}
+
+/* Aumentar tamaño de fuente */
+#temario-table th, #temario-table td {
+   font-size: 18px; /* Tamaño ajustable según tus necesidades */
+   padding: 10px;
+}
+
+/* Mejorar estética de filas */
+#temario-table tbody tr:nth-child(even) {
+   background-color: #f9f9f9; /* Color alternado */
+}
+
+#temario-table tbody tr:nth-child(odd) {
+   background-color: #ffffff;
+}
+
+.box-container {
+   flex-grow: 1;
+   overflow-x: auto; /* Para manejar tablas grandes en pantallas pequeñas */
+}
+
+#temario-table {
+   width: 100%; /* Tabla ocupa todo el ancho del contenedor */
+   border-collapse: collapse; /* Quita los espacios entre bordes */
+   margin: auto; /* Centrar la tabla */
+}
+
+/* Bordes para darle un estilo más definido */
+#temario-table th, #temario-table td {
+   border: 1px solid #ddd;
+}
+/*---------------------------------*/
 
 *{
    font-family: 'Nunito', sans-serif;
